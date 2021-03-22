@@ -1,0 +1,44 @@
+body {
+  margin: auto;
+  margin-top: 4vh ;
+  width: 75%;
+  text-align: center;
+}
+
+select {
+  margin-top: 5vh;
+  border: 2px rgb(47, 5, 88) solid;
+  border-radius: 8px;
+  width: 150px;
+  height: 40px;
+}
+
+
+footer{
+  margin-top: 3vh;
+  clear: both;
+}
+div {
+  width : 20%;
+  float: left;
+  margin:40px;
+}
+
+img {
+  width : 190px;
+  height: 210px;
+}
+
+h2 ,p {
+  text-align: center;
+  font-family: 'The Girl Next Door', cursive;
+}
+
+#photo-template{
+  display: none;
+}
+ section{
+   margin-top: 5vh;
+   margin-left: 10vw;
+   margin-right: 10vw;
+ }
