@@ -52,7 +52,7 @@ renderPage('data/page-1.json');
 
 $("#pages").on("click", (event) => {
   //console.log(event.target.id);
-  hornsArr =[];
+  hornsArr = [];
 
   switch (event.target.id) {
     case 'page1':
@@ -70,8 +70,7 @@ $("#pages").on("click", (event) => {
 
 $("select").on("change", (event) => {
   //console.log(event.target.value);
-  $('.page1').remove();
-  $('.page2').remove();
+  removeOld();
   $('#photo-template').html();
   hornsArr.forEach((element) => {
     if (element.keyword === event.target.value) {
@@ -80,18 +79,45 @@ $("select").on("change", (event) => {
   });
 });
 
+$('#sorting').on('click', (event) => {
+  //console.log(event.target.id);
+  switch (event.target.id) {
+    case 'byTitle':
+      sortHornsByTitle(hornsArr);
+      removeOld();
+      $('#byNum').removeAttr('checked');
+      hornsArr.forEach((horn) => {
+        horn.renderGallery();
+      });
+      break;
+    case 'byNum':
+      sortHornsByNum(hornsArr)
+      removeOld();
+      $('#byTitle').removeAttr('checked');
+      hornsArr.forEach((horn) => {
+        horn.renderGallery();
+      });
+      break;
+    default:
+      break;
+  }
+});
+
 function renderPage(fileName) {
 
   $.ajax(fileName, ajaxSettings).then((data) => {
     keywords = [];
-    $('.page1').remove();
-    $('.page2').remove();
+    removeOld();
     data.forEach((horn) => {
       let hornObject = new Horn(horn);
       hornObject.extractKeywords();
 
     });
-    sortHorns(hornsArr);
+    if ($('#byTitle').is(':checked')) {
+      sortHornsByTitle(hornsArr);
+    } else if ($('#byNum').is(':checked')) {
+      sortHornsByNum(hornsArr);
+    }
     addList();
     hornsArr.forEach((horn) => {
       horn.renderGallery();
@@ -111,8 +137,8 @@ function addList() {
   }
 }
 
-function sortHorns(horns){
-  horns.sort((hornTitle1 , hornTitle2) => {
+function sortHornsByTitle(horns) {
+  horns.sort((hornTitle1, hornTitle2) => {
     if (hornTitle1.title.toLowerCase() < hornTitle2.title.toLowerCase()) {
       return -1;
     }
@@ -121,4 +147,21 @@ function sortHorns(horns){
     }
     return 0;
   });
+}
+
+function sortHornsByNum(horns) {
+  horns.sort((hornTitle1, hornTitle2) => {
+    if (hornTitle1.horns < hornTitle2.horns) {
+      return -1;
+    }
+    if (hornTitle1.horns > hornTitle2.horns) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+function removeOld() {
+  $('.page1').remove();
+  $('.page2').remove();
 }
