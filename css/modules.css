@@ -4,3 +4,15 @@ h2 {
  p{
    font-size: larger;
  }
+ #pages h3 {
+  display: inline-block;
+  width : 90px;
+  height: 30px;;
+  font-size: medium;
+  background-color: cornsilk;
+  border-radius: 60px;
+  border: 1px solid black;
+  font-family: 'The Girl Next Door', cursive;
+
+}
+
